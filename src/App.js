@@ -1,5 +1,3 @@
-import { Children } from "react"
-
 const initialFriends = [
   {
     id: 118836,
@@ -21,13 +19,19 @@ const initialFriends = [
   },
 ]
 
+function Button({ children }) {
+  return <button className="button">{children}</button>
+}
+
 export default function App() {
   return (
     <div className="app">
       <div className="sidebar">
         <FriendList />
         <FormAddFriend />
+        <Button>Add Friend</Button>
       </div>
+      <FormSplitBill />
     </div>
   )
 }
@@ -45,11 +49,6 @@ function FriendList() {
 }
 
 function Friend({ friend }) {
-  const owe = (
-    <p className="red">
-      You Owe {friend.name} {Math.abs(friend.balance)}$
-    </p>
-  )
   return (
     <li>
       <img src={friend.image} alt={friend.name} />
@@ -71,15 +70,37 @@ function Friend({ friend }) {
   )
 }
 
-function Button({ Children }) {
-  return <button className="button">{Children}</button>
-}
 function FormAddFriend() {
   return (
     <form className="form-add-friend">
       <label>👫Friend Name</label>
       <input type="text" />
       <label>🖼️Image URL</label>
+      <input type="text" />
+      <Button>Add</Button>
+    </form>
+  )
+}
+
+function FormSplitBill() {
+  return (
+    <form className="form-split-bill">
+      <h2>Split a bill with X</h2>
+
+      <label>💰 Bill Value</label>
+      <input type="text" />
+
+      <label>🙎‍♂️ Your expense</label>
+      <input type="text" />
+
+      <label>👫 X's expense</label>
+      <input type="text" disabled />
+
+      <label>🤑 Who is paying the bill</label>
+      <select>
+        <option value="user">You</option>
+        <option value="friend">X</option>
+      </select>
       <Button>Add</Button>
     </form>
   )
